@@ -1,0 +1,207 @@
+<%- include('header_salaib', { title: 'Chuyển khoản ngoài SLB'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Chuyển tiền</a>
+    <span class="split last"> / </span>
+    <a>Chuyển khoản ngoài SLB</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">CHUYỂN KHOẢN NGOÀI HỆ THỐNG SLB</h1>
+                    <div class="con">
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left" style="padding-left: .5rem;">
+                                                THÔNG TIN ĐƠN VỊ CHUYỂN TIỀN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chọn tài khoản trích tiền</th>
+                                            <td>
+                                                <select class="form-control form-control-sm col-md-8" id="tktrichtien"
+                                                    name="tktrichtien">
+                                                    <option></option>
+                                                    <option>223123</option>
+                                                    <option>332222</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THÔNG TIN ĐƠN VỊ THỤ HƯỞNG
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Nhập số tài khoản thụ hưởng</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="tkthuhuong" name="tkthuhuong">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tên đơn vị thụ hưởng</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="tendvthuhuong" name="tendvthuhuong">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tỉnh/ Thành phố</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="tinhthanhpho" name="tinhthanhpho">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tại ngân hàng</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="tainganhang" name="tainganhang">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Chi nhánh</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="chinhanh" name="chinhanh">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THÔNG TIN CHUYỂN KHOẢN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Số tiền</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="sotien" name="sotien">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Số tiền bằng chữ</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="sotienbangchu" name="sotienbangchu">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Phí giao dịch</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="phigd" name="phigd">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Số tiền phí bằng chữ</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="sotienphigdbangchu" name="sotienphigdbangchu">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nội dung giao dịch</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="noidunggd" name="noidunggd">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THỜI GIAN CHUYỂN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="chuyenkhoanngay" name="chuyenkhoanngay"
+                                                        class="custom-control-input" checked="">
+                                                    <label class="custom-control-label active" for="chuyenkhoanngay"
+                                                        style="padding-top: .3rem;">Chuyển khoản ngay</label>
+                                                </div>
+                                            </th>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                PHƯƠNG PHÁP XÁC THỰC
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chọn phương pháp xác thực</th>
+                                            <td>
+                                                <select class="form-control form-control-sm col-md-8" id="ppxacthuc"
+                                                    name="ppxacthuc">
+                                                    <option></option>
+                                                    <option>Mật khẩu tĩnh + Email</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form" style="background-color: white; padding-top: 1rem;">
+                                <button type="submit" class="btn btn-primary btn-danger"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;">Đồng ý</button>
+                                <button type="button" class="btn btn-primary btn-secondary"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;">Hủy</button>
+                            </div>
+                        </form>
+                        <div class="luu-y">
+                            <span style="color: red; font-weight: bold;">Lưu ý:</span>
+                            <br>
+                            - Khi chọn Đơn vị thụ hưởng chịu phí, số tiền phí sẽ được trừ vào số tiền chuyển.
+                            <br>
+                            - Giao dịch chuyển khoản cho cá nhân nước ngoài: chỉ thực hiện giao dịch chuyển lương và công tác phí. Các giao dịch này phải có chứng từ chứng minh theo quy định
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib');  -%>

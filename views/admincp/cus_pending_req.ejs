@@ -1,0 +1,79 @@
+<%- include('header_admincp', { title: 'Request Pending Customer' }); -%>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Customer / Pending Requests</h1>
+    </div>
+    <p class="mb-4">Account authentication for new registered customers...</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">New Registration</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive datatable">
+                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>DisplayName</th>
+                            <th>Identification</th>
+                            <th>NumberId</th>
+                            <th>DateRange</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>DisplayName</th>
+                            <th>Identification</th>
+                            <th>NumberId</th>
+                            <th>DateRange</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <% for( let i = 0; i < users.length; i++ ) { %>
+                        <tr>
+                            <td><%= users[i].username %></td>
+                            <td><%= users[i].email %></td>
+                            <td><%= users[i].displayName %></td>
+                            <td><%= users[i].identification %></td>
+                            <td>
+                                <div class="badge badge-primary badge-pill"><%= users[i].numberId %></div>
+                            </td>
+                            <td><%= users[i].dateRange %></td>
+                            <td>
+                                <div class="dropdown no-arrow text-center">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user-cog fa-fw text-gray-500"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink">
+                                        <div class="dropdown-header">Actions:</div>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="location.href=`<%= './pendingRequests/auth/' + users[i].id + '/' + '1' %>`">Authenticate</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="location.href=`<%= './pendingRequests/auth/' + users[i].id + '/' + '-1' %>`">Refuse to authenticate</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="location.href=`<%= './view/Request?username=' + users[i].username%>`">View more</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+<%- include('footer_admincp'); -%>

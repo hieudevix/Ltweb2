@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/images/sala-favicon.png">
+
+  <title><%= title %> - SalaBank Online</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/vendor//admincp/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="/css/admincp/sb-admin-2.min.css" rel="stylesheet">
+  <link href="/css/admincp/styles.min.css" rel="stylesheet">
+  <link href="/vendor/admincp/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <script src="/js/check.js"></script>
+  <script src="/js/numtostring.js"></script>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <nav class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion shadow-right fixed-top-menu-left"
+      id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <img class="img-fluid" src="/images/logo-sala-bank.png">
+        </div>
+        <div class="sidebar-brand-text mx-3">SalaBank Admin <sup>stf</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <div id="side-menu" class="sidenav-menu">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item <%= page_name == 'index' ? 'active' : '' %>">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Information
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li
+          class="nav-item <%= page_name == 'cus_pending_req' || page_name == 'cus_findAll' || page_name == 'cus_view' || page_name == 'cus_trans' ? 'active' : '' %>">
+          <a class="nav-link <%= page_name == 'cus_pending_req' || page_name == 'cus_findAll' || page_name == 'cus_view' || page_name == 'cus_trans' ? '' : 'collapsed' %>"
+            href="#" data-toggle="collapse" data-target="#collapseCus"
+            aria-expanded="<%= page_name == 'cus_pending_req' || page_name == 'cus_findAll' || page_name == 'cus_view' || page_name == 'cus_trans' ? 'true' : 'false' %>"
+            aria-controls="collapseCus">
+            <i class="fas fa-fw fa-address-card"></i>
+            <span>Customers<i class="<%= countPendingAuthCus ? 'status-indicator bg-success' : '' %>"></i></span>
+          </a>
+          <div id="collapseCus"
+            class="collapse <%= page_name == 'cus_pending_req' || page_name == 'cus_findAll' || page_name == 'cus_view' || page_name == 'cus_trans' ? 'show' : '' %>"
+            aria-labelledby="headingCus" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Individual Customers:</h6>
+              <a class="collapse-item <%= page_name == 'cus_pending_req' ? 'active' : '' %>"
+                href="/admincp/customers/pendingRequests">Pending requests
+                <span
+                  class="badge badge-danger badge-counter"><%= countPendingAuthCus ? countPendingAuthCus : '' %></span>
+              </a>
+              <a class="collapse-item <%= page_name == 'cus_findAll' || page_name == 'cus_view' || page_name == 'cus_trans' ? 'active' : '' %>"
+                href="/admincp/customers/findAll">Looking for information</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Trans Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans"
+            aria-expanded="true" aria-controls="collapseTrans">
+            <i class="fas fa-fw fa-file-invoice-dollar"></i>
+            <span>Transactions</span>
+          </a>
+          <div id="collapseTrans" class="collapse" aria-labelledby="headingTrans" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Transaction Details:</h6>
+              <a class="collapse-item" href="/">Pending requests</a>
+              <a class="collapse-item" href="/">Looking for information</a>
+              <a class="collapse-item" href="/">Other</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Tasks Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTasks"
+            aria-expanded="true" aria-controls="collapseTasks">
+            <i class="fas fa-fw fa-tasks"></i>
+            <span>Tasks</span>
+          </a>
+          <div id="collapseTasks" class="collapse" aria-labelledby="headingTasks" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Tasks Details:</h6>
+              <a class="collapse-item" href="/">Pending requests</a>
+              <a class="collapse-item" href="/">Looking for information</a>
+              <a class="collapse-item" href="/">Other</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+          Addons
+        </div>
+
+        <!-- Nav Item - Exchange Rate Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExchange"
+            aria-expanded="true" aria-controls="collapseExchange">
+            <i class="fas fa-fw fa-sync-alt"></i>
+            <span>Exchange Rate</span>
+          </a>
+          <div id="collapseExchange" class="collapse" aria-labelledby="headingExchange" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Exchange Rate Screens:</h6>
+              <a class="collapse-item" href="/">Gold Price</a>
+              <a class="collapse-item" href="/">Dollar Price</a>
+              <a class="collapse-item" href="/">Stock Exchange Rate</a>
+              <div class="collapse-divider"></div>
+              <h6 class="collapse-header">Other:</h6>
+              <a class="collapse-item" href="/">Diamond Price</a>
+              <a class="collapse-item" href="/">Gemstone Price</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- Nav Item - Tools -->
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-calculator"></i>
+            <span>Calculation Tools</span></a>
+        </li>
+
+        <!-- Nav Item - Helps -->
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-question-circle"></i>
+            <span>Helps</span></a>
+        </li>
+
+      </div>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+      <div class="sidenav-footer border-top-login-as">
+        <div class="sidenav-footer-content">
+          <div class="sidenav-footer-title d-none d-md-inline"><%= staff.locate %></div>
+          <div class="sidenav-footer-subtitle">Logged in as:</div>
+          <div class="sidenav-footer-title"><%= staff.displayName %></div>
+        </div>
+      </div>
+
+    </nav>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow fixed-top-navbar">
+
+          <a class="navbar-brand" href="/">SalaBank</a>
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Timer -->
+          <script>
+            var mydate = new Date();
+            var year = mydate.getYear();
+            if (year < 1000) year += 1900;
+            var day = mydate.getDay();
+            var month = mydate.getMonth();
+            var daym = mydate.getDate();
+            if (daym < 10) daym = "0" + daym;
+            var dayarray = new Array("Ch&#7911; nh&#7853;t", "Th&#7913; 2", "Th&#7913; 3", "Th&#7913; 4", "Th&#7913; 5", "Th&#7913; 6", "Th&#7913; 7");
+            var montharray = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+            document.write("<div class=\"timer d-none d-xl-inline\">" + dayarray[day] + ", ngày " + daym + " tháng " + montharray[month] + " năm " + year + "</div>");
+          </script>
+          <a class="nav-link border-danger border-right d-none d-md-inline" style="padding: 10px;"><img
+              src="/images/icons/icon-vi.png"></a>
+          <marquee style="margin:5px; width:30.5%;" class="d-none d-md-inline" LOOP="2" direction="left"
+            onmouseover="this.stop();" onmouseout="this.start();">
+            <a href="/">
+              SalaBank đưa đón cán bộ nhân viên về quê đón Tết.
+            </a>
+            &emsp;&emsp;&emsp;
+            <a href="/">
+              Chính sách phúc lợi, đãi ngộ nhân viên.
+            </a>
+          </marquee>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                      aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Quick Actions -->
+            <li class="nav-item dropdown no-caret mr-3 d-none d-md-inline">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="javascript:void(0);" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="d-none d-md-inline font-weight-500">Quick Actions</div>
+                <svg class="svg-inline--fa fa-chevron-right fa-w-10 dropdown-arrow" aria-hidden="true" focusable="false"
+                  data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 320 512" data-fa-i2svg="">
+                  <path fill="currentColor"
+                    d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z">
+                  </path>
+                </svg><!-- <i class="fas fa-chevron-right dropdown-arrow"></i> -->
+              </a>
+              <div class="dropdown-menu dropdown-menu-right py-0 mr-sm-n15 mr-lg-0 o-hidden animated--fade-in-up"
+                aria-labelledby="navbarDropdownDocs">
+                <a class="dropdown-item d-flex align-items-center py-3" href="/" target="_blank">
+                  <div class="icon-stack bg-primary-soft text-primary mr-4"><svg xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" class="feather feather-book">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg></div>
+                  <div>
+                    <div class="small text-gray-500">Documentation</div>
+                    Usage instructions and reference
+                  </div>
+                </a>
+                <div class="dropdown-divider m-0"></div>
+                <a class="dropdown-item d-flex align-items-center py-3" href="/" target="_blank">
+                  <div class="icon-stack bg-primary-soft text-primary mr-4"><svg xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" class="feather feather-code">
+                      <polyline points="16 18 22 12 16 6"></polyline>
+                      <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg></div>
+                  <div>
+                    <div class="small text-gray-500">Components</div>
+                    Code snippets and reference
+                  </div>
+                </a>
+                <div class="dropdown-divider m-0"></div>
+                <a class="dropdown-item d-flex align-items-center py-3" href="/" target="_blank">
+                  <div class="icon-stack bg-primary-soft text-primary mr-4"><svg xmlns="http://www.w3.org/2000/svg"
+                      width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg></div>
+                  <div>
+                    <div class="small text-gray-500">Changelog</div>
+                    Updates and changes
+                  </div>
+                </a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link btn-icon-item btn-transparent-dark btn-icon-size dropdown-toggle" href="#"
+                id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-bell">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">September 12, 2020</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">September 7, 2020</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">September 2, 2020</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link btn-icon-item btn-transparent-dark btn-icon-size dropdown-toggle" href="#"
+                id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="feather feather-mail mr-2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
+                      having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them
+                      sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so
+                      far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
+                      say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li id="nav-dropdown-user" class="nav-item dropdown no-arrow">
+              <a class="nav-link btn-icon-item btn-transparent-dark btn-icon-size dropdown-toggle" href="#"
+                id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span> -->
+                <img class="img-profile rounded-circle"
+                  src="<%= staff.avatar ? 'data:image/png;base64, ' + staff.avatar : '/images/user-no-avatar.png' %>">
+              </a>
+
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <h6 class="dropdown-header-user d-flex align-items-center">
+                  <img class="dropdown-user-img rounded-circle"
+                    src="<%= staff.avatar ? 'data:image/png;base64, ' + staff.avatar : '/images/user-no-avatar.png' %>">
+                  <div class="dropdown-user-details">
+                    <div class="dropdown-user-details-name"><%= staff.displayName %></div>
+                    <div class="dropdown-user-details-email"><%= staff.email %></div>
+                  </div>
+                </h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->

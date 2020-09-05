@@ -1,0 +1,133 @@
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+    crossorigin="anonymous"></script>
+
+<script src="/js/jquery-ui.min.js"></script>
+
+
+<script type="text/javascript">
+    var onloadCallback = function () {
+        grecaptcha.render('recaptcha_login', {
+            'sitekey' : '6LdyAbYZAAAAAD5K2A2gi9rZXfuhRdWsRX1HFatZ'
+        });
+    };
+</script>
+
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
+    function changeAmount(value) {
+        loValue = formatCurrency(value.replace(/,/g, "").replace(/\./g, ""));
+        loValue = loValue.replace(/,/g, ".")
+        return loValue;
+    }
+    function checkLength(form) {
+        var lencheck = 194;
+        if (document.getElementById('isnhan2').checked) {
+            lencheck = 194 - 14;
+        }
+        if (form.noidunggd.value.length >= lencheck - form.glbHoTenKH.value.length) {
+            len = form.noidunggd.value.length - 1;
+            form.noidunggd.value = form.noidunggd.value.substr(0, len);
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        var so = document.getElementById('sotien').value;
+        so = so.replace(/,/g, "");
+        so = so.replace(/\./g, "");
+
+        var v_doc_so = docso(so);
+        var stchu = v_doc_so.substring(2, 1).toUpperCase() + v_doc_so.substring(2, v_doc_so.length) + " đồng";
+
+        document.getElementById('sotienbangchu').value = stchu;
+
+
+        var so = document.getElementById('phigd').value;
+        so = so.replace(/,/g, "");
+        so = so.replace(/\./g, "");
+
+        var v_doc_so = docso(so);
+        var stchu = v_doc_so.substring(2, 1).toUpperCase() + v_doc_so.substring(2, v_doc_so.length) + " đồng";
+
+        document.getElementById('sotienphigdbangchu').value = stchu;
+
+        if (so == '0' || so == '') {
+            //$('#chiuphi').hide();
+            $('#chiuphi').css("display", "none");
+        }
+        else {
+            //$('#chiuphi').show();
+            $('#chiuphi').css("display", "block");
+        }
+    });
+</script>
+<script>
+    $(function () {
+        $("#fromDate, #toDate").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showOn: "button",
+            buttonImage: "../images/salaib/calendar.png",
+            buttonImageOnly: true,
+            buttonText: "Chọn ngày"
+        });
+    });
+    $('#imgId').on('change', function (e) {
+        //get the file name
+        var fileName = e.target.files[0].name;
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    });
+
+    function checkError() {
+        $('#btnOK').click();
+    }
+
+    // Chuyen Tien
+    $('#sotien').blur(function () {
+        var so = document.getElementById('sotien').value;
+        so = so.replace(/,/g, "");
+        so = so.replace(/\./g, "");
+
+        var v_doc_so = docso(so);
+        var stchu = v_doc_so.substring(2, 1).toUpperCase() + v_doc_so.substring(2, v_doc_so.length) + " đồng";
+
+        document.getElementById('sotienbangchu').value = stchu;
+        return false;
+    });
+    $('#sotien').change(function () {
+        var so = document.getElementById('sotien').value;
+        so = so.replace(/,/g, "");
+        so = so.replace(/\./g, "");
+
+        var v_doc_so = docso(so);
+        var stchu = v_doc_so.substring(2, 1).toUpperCase() + v_doc_so.substring(2, v_doc_so.length) + " đồng";
+
+        document.getElementById('sotienbangchu').value = stchu;
+
+        $('#btnOK').click();
+        return false;
+    });
+</script>
+
+</body>
+
+</html>

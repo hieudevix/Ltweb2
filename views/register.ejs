@@ -1,0 +1,114 @@
+<%- include('header', { title: 'Đăng ký' }); -%>
+
+<div class="body-main">
+    <div class="full-slider" style="top: 30px; background: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 mx-auto">
+                    <div class="card card-signin my-6" style="padding: 0 10px; top: 40px;">
+                        <div class="card-body">
+                            <div class="text-center"><img style="max-width: 25%; height: auto;"
+                                    src="/images/logo-sala-bank.png"></div>
+                            <h1 class="card-title text-center fadein_animation"
+                                style="margin-bottom: 0; color: #dbbc55; letter-spacing: .1rem; font-weight: bold;">
+                                SalaBank</h1>
+                            <h2 class="card-text text-center"
+                                style="margin-bottom: 1rem; color: #dbbc55; letter-spacing: .1rem; font-weight: bold;">
+                                Đăng ký tài khoản mới</h2>
+                            <% if (errors) { %>
+                            <% for(let i=0; i<errors.length;i++){ %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <%= "(" + (i+1) + ")" + " - [" + errors[i].param + "] vừa nhập: " + errors[i].value + " => Lỗi: " + errors[i].msg %>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <% } %>
+                            <div class="control fix-ie" style="text-align: center; margin-top: 1.5rem;">
+                                <button type="button" class="btn-hover color" style="text-transform: uppercase;"
+                                    onclick="window.location.href='/register'">
+                                    Đăng ký lại
+                                </button>
+                            </div>
+                            <% } else if (success == '1') { %>
+                            <div class="alert alert-primary text-center" role="alert">
+                                Đăng ký tài khoản thành công!<br>Quý khách vui lòng chờ Email thông báo kích hoạt.
+                            </div>
+                            <div class="control fix-ie" style="text-align: center; margin-top: 1.5rem;">
+                                <button type="button" class="btn-hover color" style="text-transform: uppercase;"
+                                    onclick="window.location.href='/'">
+                                    Về trang chủ
+                                </button>
+                            </div>
+                            <% } else { %>
+                            <form method="POST" class="form-signin" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-label-group col-md-6">
+                                        <input type="text" class="form-control" id="username" name="username"
+                                            aria-describedby="numHelp" placeholder="Tên đăng nhập" required autofocus>
+                                        <label for="username">Tên đăng nhập</label>
+                                    </div>
+                                    <div class="form-label-group col-md-6">
+                                        <input type="password" class="form-control" id="password" name="password"
+                                            aria-describedby="numHelp" placeholder="Mật khẩu đăng nhập" required>
+                                        <label for="password">Mật khẩu</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label-group col-md-6">
+                                        <input type="text" class="form-control" id="displayName" name="displayName"
+                                            aria-describedby="numHelp" placeholder="Họ và tên" required>
+                                        <label for="displayName">Họ và tên</label>
+                                    </div>
+                                    <div class="form-label-group col-md-6">
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            aria-describedby="numHelp" placeholder="Nhập Email" required>
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-label-group col-md-2">
+                                        <select id="identification" name="identification" style="height: 3.2rem;"
+                                            class="form-control">
+                                            <option>CMND</option>
+                                            <option>CCCD</option>
+                                            <option>Hộ chiếu</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-label-group col-md-6">
+                                        <input type="text" class="form-control" id="numberId" name="numberId"
+                                            aria-describedby="numHelp" placeholder="Số giấy tờ tùy thân" required>
+                                        <label for="numberId">Số giấy tờ tùy thân</label>
+                                    </div>
+                                    <div class="form-label-group col-md-4">
+                                        <input type="date" class="form-control" id="
+                                            dateRange" name="dateRange" aria-describedby="numHelp"
+                                            placeholder="Ngày cấp" required>
+                                        <label for="dateRange">Ngày cấp</label>
+                                    </div>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="imgId" name="imgId" required>
+                                    <label class="custom-file-label" for="imgId">Chọn ảnh giấy tờ tùy thân</label>
+                                </div>
+                                <div class="control fix-ie" style="text-align: center; margin-top: 1.5rem;">
+                                    <button type="submit" class="btn-hover color" style="text-transform: uppercase;">
+                                        Đăng ký
+                                    </button>
+                                </div>
+                                <div class="login-link text-center">
+                                    <small class="">Bằng cách nhấp vào Đăng ký, bạn đồng ý với Điều khoản, Chính sách dữ
+                                        liệu và
+                                        Chính sách cookie của chúng tôi.</small>
+                                </div>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer'); -%>

@@ -1,0 +1,137 @@
+<%- include('header'); -%>
+<script>
+    $(function () {
+        $(window).bind("resize", function () {
+            console.log($(this).width())
+            if ($(this).width() < 500) {
+                $('.container').removeClass('container').addClass('tailoc')
+                $('#sidebar').removeClass('active')
+                $('#sidebarCollapse').removeClass('active')
+            } else {
+                $('.tailoc').removeClass('tailoc').addClass('container')
+                $('#sidebar').removeClass('active')
+                $('#sidebarCollapse').removeClass('active')
+            }
+        }).trigger('resize');
+    })
+
+    $(document).ready(function () {
+        $('#clicked_minisize').on('click', function () {
+            $(window).bind("resize", function () {
+                if ($(this).width() < 500) {
+                    $('#sidebar').toggleClass('active');
+                    $('#sidebarCollapse').toggleClass('active');
+                }
+            }).trigger('resize');
+        });
+    });
+</script>
+
+<div class="container">
+
+    <div class="wrapper" style="background-color: white;">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="/">
+                    <img class="img-fluid" src="/images/logo-sala-bank.png">
+                </a>
+                <h2 class="text-center fadein_animation"
+                    style="margin-bottom: 0; color: #dbbc55; letter-spacing: .1rem; font-weight: bold;">
+                    SalaBank
+                </h2>
+                <h5 class="text-center" style="margin-top: 10px;">CÁ NHÂN</h5>
+            </div>
+
+            <ul id="metismenu">
+                <li
+                    class="<%= (page_name == 'thong_tin_tai_khoan' | page_name == 'liet_ke_giao_dich_online') ? 'mm-active' : '' %>">
+                    <a href="#" aria-expanded="false">Quản lý tài khoản</a>
+                    <ul>
+                        <li
+                            class="no-child <%= page_name == 'thong_tin_tai_khoan' ||  page_name == 'thong_tin_tai_khoan_chi_tiet' ? 'mm-active' : '' %>">
+                            <a href="/salaib/Request?operationName=thong_tin_tai_khoan&operationNameChild=no_child">Thông
+                                tin tài khoản</a></li>
+                        <li class="no-child <%= page_name == 'liet_ke_giao_dich_online' ? 'mm-active' : '' %>"><a
+                                href="/salaib/Request?operationName=liet_ke_giao_dich_online&operationNameChild=no_child">Liệt
+                                kê giao dịch trực tuyến</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="<%= (page_name == 'chuyen_khoan_trong_slb' | page_name == 'chuyen_khoan_ngoai_slb') ? 'mm-active' : '' %>">
+                    <a href="#" aria-expanded="false">Chuyển tiền</a>
+                    <ul>
+                        <li
+                            class="no-child <%= page_name == 'chuyen_khoan_trong_slb' || page_name == 'result_trans' ? 'mm-active' : '' %>">
+                            <a href="/salaib/Request?operationName=chuyen_khoan_trong_slb&operationNameChild=no_child">Chuyển
+                                khoản trong SLB</a></li>
+                        <li class="no-child <%= page_name == 'chuyen_khoan_ngoai_slb' ? 'mm-active' : '' %>"><a
+                                href="/salaib/Request?operationName=chuyen_khoan_ngoai_slb&operationNameChild=no_child">Chuyển
+                                khoản ngoài SLB</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" aria-expanded="false">Tiền gửi</a>
+                    <ul>
+                        <li class="no-child">
+                            <a href="#" class="has-arrow" aria-expanded="false">Tiền gửi có kỳ hạn</a>
+                            <ul>
+                                <li class="no-child <%= page_name == 'tien_gui_co_ky_han_motk' ? 'mm-active' : '' %>"><a
+                                        href="/salaib/Request?operationName=tien_gui_co_ky_han&operationNameChild=mo_tai_khoan">&nbsp;&nbsp;&nbsp;&nbsp;Mở tài khoản</a></li>
+                                <li class=" no-child"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;Cập nhật chỉ thị tái tục</a>
+                                </li>
+                                <li class="no-child <%= page_name == 'tien_gui_co_ky_han_tattoan' ? 'mm-active' : '' %>"><a href="/salaib/Request?operationName=tien_gui_co_ky_han&operationNameChild=tat_toan_tai_khoan">&nbsp;&nbsp;&nbsp;&nbsp;Tất toán tài khoản</a></li>
+                                <li class="no-child"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;Liệt kê giao dịch tiền gửi</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <script>
+                $("#metismenu").metisMenu();
+            </script>
+
+            <div class="box-left">
+                <a href="javascript:void(0)">
+                    <iframe src="/images/salaib/adv_left.gif" frameborder="0" height="220px" width="220px"
+                        scrolling="no" marginheight="0px" marginwidth="0px"> </iframe>
+                </a>
+                <div class="copyright">
+                    <span>Copyright © 2020<br>Ngân hàng Sala - SLB<br>Quận 5, TP HCM, VN, Trái Đất.
+                    </span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+            <div class="header">
+                <button type="button" id="sidebarCollapse" class="navbar-btn d-sm-none">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <script>
+                    var mydate = new Date();
+                    var year = mydate.getYear();
+                    if (year < 1000) year += 1900;
+                    var day = mydate.getDay();
+                    var month = mydate.getMonth();
+                    var daym = mydate.getDate();
+                    if (daym < 10) daym = "0" + daym;
+                    var dayarray = new Array("Ch&#7911; nh&#7853;t", "Th&#7913; 2", "Th&#7913; 3", "Th&#7913; 4", "Th&#7913; 5", "Th&#7913; 6", "Th&#7913; 7");
+                    var montharray = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+                    document.write("<div class=\"timer d-none d-sm-block\" style=\"color: #636464\">" + dayarray[day] + ", ngày " + daym + " tháng " + montharray[month] + " năm " + year + "</div>");
+                </script>
+                <div class="header-right">
+                    <a href="/" style="color: #636464;"><i class="fa fa-home fa-fw fa-lg"></i>Trang chủ&nbsp;</a>
+                    <a href="/help" style="color: #636464;"><i class="fa fa-question-circle fa-fw fa-lg"></i>Trợ
+                        giúp&nbsp;</a>
+                    <a href="/logout" style="color: #636464;"><i class="fa fa-sign-out fa-fw fa-lg"></i>Đăng xuất</a>
+                </div>
+            </div>
+
+            <div class="container" style="padding: 20px;">
+                <h3>Xin chào<%= (currentUser.isStaff == true) ? ' Staff' : '' %>, <%= currentUser.displayName %></h3>
+                <div class="line"></div>

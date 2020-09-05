@@ -1,0 +1,188 @@
+<%- include('header_salaib', { title: 'Xác thực giao dịch chuyển khoản'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Chuyển tiền</a>
+    <span class="split"> / </span>
+    <a>Chuyển khoản trong SLB</a>
+    <span class="split last"> / </span>
+    <a>Xác thực giao dịch</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">CHUYỂN KHOẢN TRONG HỆ THỐNG SLB</h1>
+                    <div class="con">
+                        <p><small>Quý khách vui lòng kiểm tra lại các thông tin giao dịch bên dưới.
+                                Giao dịch này sẽ được SLB Online xử lý ngay khi Quý khách ký xác nhận.<br>
+                                Ngày giờ lập:
+                                <%= moment(trans.date_create).format('DD/MM/YYYY') + ' ' + moment(trans.date_create).format('HH:mm:ss') %></small>
+                        </p>
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left" style="padding-left: .5rem;">
+                                                THÔNG TIN ĐƠN VỊ CHUYỂN TIỀN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Tài khoản trích tiền</td>
+                                            <td class="text_bold">
+                                                <input type="hidden" id="tktrichtien" name="tktrichtien"
+                                                    value="<%= trans.from_account_number %>">
+                                                <%= trans.from_account_number + ' - ' + auth_tktt.product + ' ' + auth_tktt.currency %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Chuyển khoản đến</td>
+                                            <td class="text_bold"><%= trans.type_transfer %> </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THÔNG TIN ĐƠN VỊ THỤ HƯỞNG
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Tên đơn vị thụ hưởng</td>
+                                            <input type="hidden" id="beneficiary_unit" name="beneficiary_unit"
+                                                    value="<%= trans.beneficiary_unit %>">
+                                            <td class="text_bold"><%= trans.beneficiary_unit %> </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Tài khoản thụ hưởng</td>
+                                            <input type="hidden" id="tkthuhuong" name="tkthuhuong"
+                                                value="<%= auth_tkth %>">
+                                            <td class="text_bold"><%= auth_tkth %></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THÔNG TIN CHUYỂN KHOẢN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Số tiền</td>
+                                            <td class="text_bold">
+                                                <input type="hidden" id="sotien" name="sotien"
+                                                    value="<%= trans.debited %>">
+                                                <%= new Intl.NumberFormat('vi').format(trans.debited) + ' ' + auth_tktt.currency %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Số tiền bằng chữ</td>
+                                            <td class="text_bold">
+                                                <textarea class="form-control form-control-sm col-md-8" wrap="soft"
+                                                    id="sotienbangchu" name="sotienbangchu"
+                                                    style="resize: none;border: none;" readonly></textarea>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Phí giao dịch</td>
+                                            <td class="text_bold">
+                                                <input type="hidden" id="phigd" name="phigd" value="<%= trans.fee %>">
+                                                <%= new Intl.NumberFormat('vi').format(trans.fee) + ' ' + auth_tktt.currency %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Số tiền phí bằng chữ</td>
+                                            <td class="text_bold">
+                                                <textarea class="form-control form-control-sm col-md-8" wrap="soft"
+                                                    id="sotienphigdbangchu" name="sotienphigdbangchu"
+                                                    style="resize: none;border: none;" readonly></textarea>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Nội dung giao dịch</td>
+                                            <td class="text_bold">
+                                                <input type="hidden" id="content" name="content"
+                                                    value="<%= trans.content %>">
+                                                <%= trans.content %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THỜI GIAN CHUYỂN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Loại chuyển khoản</td>
+                                            <td class="text_bold"><%= trans.transfer_time %> </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                XÁC THỰC GIAO DỊCH
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Nhập mật khẩu đăng nhập</td>
+                                            <td><input type="password" name="auth_password" required
+                                                    class="form-control form-control-sm col-md-8" value="" size="31">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">OTP EMAIL</td>
+                                            <td>
+                                                <input type="text" name="trans_code"
+                                                    class="form-control form-control-sm col-md-8"
+                                                    value="<%= trans.trans_code %>" size="10" readonly>
+                                                <input type="text" name="auth_otp_email" required
+                                                    class="form-control form-control-sm col-md-8" value="" size="14">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form" style="background-color: white; padding-top: 1rem;">
+                                <button type="submit" name="btnGoback" value="btnGoback"
+                                    class="btn btn-primary btn-secondary"
+                                    style="padding: .2rem 1.5rem .2rem 1.5rem;">Quay lại</button>
+                                <button type="submit" name="btnAuthOK" value="btnAuthOK"
+                                    class="btn btn-primary btn-danger" style="padding: .2rem 1.5rem .2rem 1.5rem;">
+                                    Xác nhận</button>
+                                <a type="button" class="btn btn-primary btn-secondary" href="/"
+                                    style="padding: .2rem 1.5rem .2rem 1.5rem;">Hủy giao dịch</a>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib'); -%>

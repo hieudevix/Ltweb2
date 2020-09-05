@@ -1,0 +1,201 @@
+<%- include('header_salaib', { title: 'Mở tài khoản tiền gửi có kỳ hạn'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Tiền gửi</a>
+    <span class="split"> / </span>
+    <a>Tiền gửi có kỳ hạn</a>
+    <span class="split last"> / </span>
+    <a>Mở tài khoản</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">MỞ TÀI KHOẢN TIỀN GỬI CÓ KỲ HẠN</h1>
+                    <div class="con">
+                        <% if (error != null) { %>
+                        <div id="error">
+                            <err>
+                                <p><%= '(!) ' + error %></p>
+                            </err>
+                        </div>
+                        <% } %>
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left" style="padding-left: .5rem;">
+                                                THÔNG TIN KHÁCH HÀNG
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Họ tên khách hàng </th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="hotenkh" name="hotenkh" value="NGUYEN TAI LOC" readonly>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                TÀI KHOẢN TRÍCH TIỀN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Tài khoản <span style="color: red;">(*)</span></th>
+                                            <td>
+                                                <select
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 1 ? 'alert_box_error': '' %>"
+                                                    id="tktrichtien" name="tktrichtien" onchange="checkError()">
+                                                    <option></option>
+                                                    <% for (let i=0;i<account.length;i++) { %>
+                                                    <option value="<%= account[i].account_number %>"
+                                                        <%= account[i].account_number == account_selected ? 'selected' : ''  %>>
+                                                        <%= account[i].account_number + ' - ' + account[i].product + ' ' + account[i].currency %>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                                <% if (tktrichtien){ %>
+                                                <div class="show_detail_account">
+                                                    <%= tktrichtien.product + ' ' + '- Số dư: ' + new Intl.NumberFormat('vi').format(tktrichtien.available_balance) + ' ' + tktrichtien.currency %>
+                                                </div>
+                                                <% } %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THÔNG TIN TÀI KHOẢN TIỀN GỬI CÓ KỲ HẠN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Mở tài khoản <span style="color: red;">(*)</span></th>
+                                            <td>
+                                                <select
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 1 ? 'alert_box_error': '' %>"
+                                                    id="loaitgonline" name="loaitgonline" onchange="checkError()">
+                                                    <option value="0">Chọn loại tiền gửi có kỳ hạn</option>
+                                                    <option>TG ONLINE 1 TUAN VND</option>
+                                                    <option>TG ONLINE 2 TUAN VND</option>
+                                                    <option>TG ONLINE 3 TUAN VND</option>
+                                                    <option>TG ONLINE 1 THANG VND</option>
+                                                    <option>TG ONLINE 2 THANG VND</option>
+                                                    <option>TG ONLINE 3 THANG VND</option>
+                                                    <option>TG ONLINE 6 THANG VND</option>
+                                                    <option>TG ONLINE 9 THANG VND</option>
+                                                    <option>TG ONLINE 12 THANG VND</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Số tiền <span style="color: red;">(*)</span></th>
+                                            <td>
+                                                <input type="text"
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 3 ? 'alert_box_error': '' %>"
+                                                    value="<%= sotien %>" id="sotien" name="sotien"
+                                                    onkeypress="return isNumberKey(event);"
+                                                    onchange="this.value = changeAmount(this.value);" maxlength="18">
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Lãi suất (%/năm) </th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="annual_interest_rate" name="annual_interest_rate" value="5,50" readonly>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Ngày đáo hạn </th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="date_due" name="date_due" value="28/01/2021" readonly>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tiền lãi dự kiến <span style="color: red;">(**)</span></th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="expected_interest" name="expected_interest" value="110.904" readonly>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tổng tiền nhận dự kiến </th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="estimated_total_payment" name="estimated_total_payment" value="4.110.904" readonly>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                THỎA THUẬN ĐIỀU KHOẢN CHUNG
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3">
+                                                Quý khách đã xác nhận đồng ý với thỏa thuận điều khoản chung khi mở tiền
+                                                gửi có kỳ hạn. Quý khách có thể xem lại "Thỏa thuận điều khoản chung"
+                                                tại đây.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form" style="background-color: white; padding-top: 1rem;">
+                                <button type="submit" class="btn btn-primary btn-danger"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;" id="btnOK_tgonline"
+                                    name="btnOK_tgonline">Đồng ý</button>
+                                <a type="button" class="btn btn-primary btn-secondary" href="/"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;">Hủy</a>
+                            </div>
+                        </form>
+                        <div class="luu-y" style="background: white;">
+                            <span style="color: red; font-weight: bold;">Lưu ý:</span>
+                            <br>
+                            - <span style="color: red;">(*)</span>: Bắt buộc.
+                            <br>
+                            - <span style="color: red;">(**)</span>: Tiền lãi chỉ mang tính chất tham khảo.
+                            <br>
+                            - Hệ thống mặc định, vào ngày đến hạn, Ngân hàng sẽ tái tục Vốn sang kỳ hạn mới tương đương
+                            kỳ hạn gửi ban đầu. Lãi chuyển vào tài khoản thanh toán của khách hàng.
+                            <br>
+                            - Sau khi mở tài khoản thành công, Quý khách có thể:
+                            <br>
+                            &ensp;• Thay đổi chỉ thị tái tục tại mục (Cập nhật chỉ thị tái tục)
+                            <br>
+                            &ensp;• Đăng ký email/ĐTDĐ nhận thông báo biến động số dư tài khoản tại mục (Tiện ích /
+                            Thông báo tự động)
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib');  -%>

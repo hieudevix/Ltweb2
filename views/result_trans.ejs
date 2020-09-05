@@ -1,0 +1,67 @@
+<%- include('header_salaib', { title: 'Kết quả chuyển khoản'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Chuyển tiền</a>
+    <span class="split"> / </span>
+    <a>Chuyển khoản trong SLB</a>
+    <span class="split last"> / </span>
+    <a>Kết quả</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">CHUYỂN KHOẢN TRONG HỆ THỐNG SLB</h1>
+                    <div class="con">
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-left" style="padding-left: .5rem;">
+                                                KẾT QUẢ CHUYỂN KHOẢN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (auth_errors) { %>
+                                        <% for(let i=0;i<auth_errors.length;i++){ %>
+                                        <tr>
+                                            <td class="text-center" style="color: red;">
+                                                <%= auth_errors[i] %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                        <% } else { %>
+                                        <tr>
+                                            <td class="text-center">
+                                                Giao dịch đã gửi đến Ngân hàng thành công.<br>
+                                                Quý khách vui lòng kiểm tra lại kết quả giao dịch trong phần
+                                                <a class="link_out"
+                                                    href="Request?operationName=liet_ke_giao_dich_online&operationNameChild=no_child">Liệt
+                                                    kê giao dịch trực tuyến</a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form" style="background-color: white; padding-top: 1rem;">
+                                <a type="button" class="btn btn-primary btn-danger"
+                                href="Request?operationName=chuyen_khoan_trong_slb&operationNameChild=no_child"
+                                style="padding: .2rem 2rem .2rem 2rem;">Tạo giao dịch mới</a>
+                            </div>
+                            <div class="text-center" style="font-size: 13px; padding: 5px 5px">
+                                Cảm ơn Quý khách đã tin tưởng và sử dụng sản phẩm, dịch vụ của SLB.
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<%- include('footer_salaib'); -%>

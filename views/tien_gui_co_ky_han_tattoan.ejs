@@ -1,0 +1,125 @@
+<%- include('header_salaib', { title: 'Tất toán tài khoản tiền gửi có kỳ hạn'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Tiền gửi</a>
+    <span class="split"> / </span>
+    <a>Tiền gửi có kỳ hạn</a>
+    <span class="split last"> / </span>
+    <a>Tất toán tài khoản</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">TẤT TOÁN TÀI KHOẢN TIỀN GỬI CÓ KỲ HẠN</h1>
+                    <div class="con">
+                        <% if (error != null) { %>
+                        <div id="error">
+                            <err>
+                                <p><%= '(!) ' + error %></p>
+                            </err>
+                        </div>
+                        <% } %>
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                TÀI KHOẢN TIỀN GỬI CÓ KỲ HẠN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Số tài khoản <span style="color: red;">(*)</span></th>
+                                            <td>
+                                                <select
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 1 ? 'alert_box_error': '' %>"
+                                                    id="tktrichtien" name="tktrichtien" onchange="checkError()">
+                                                    <option></option>
+                                                    <% for (let i=0;i<account.length;i++) { %>
+                                                    <option value="<%= account[i].account_number %>"
+                                                        <%= account[i].account_number == account_selected ? 'selected' : ''  %>>
+                                                        <%= account[i].account_number + ' - ' + account[i].product + ' ' + account[i].currency %>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                                <% if (tktrichtien){ %>
+                                                <div class="show_detail_account">
+                                                    <%= tktrichtien.product + ' ' + '- Số dư: ' + new Intl.NumberFormat('vi').format(tktrichtien.available_balance) + ' ' + tktrichtien.currency %>
+                                                </div>
+                                                <% } %>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                CHUYỂN TIỀN VÀO TÀI KHOẢN TIỀN GỬI THANH TOÁN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Số tài khoản <span style="color: red;">(*)</span></th>
+                                            <td>
+                                                <select
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 1 ? 'alert_box_error': '' %>"
+                                                    id="tktrichtien" name="tktrichtien" onchange="checkError()">
+                                                    <option></option>
+                                                    <% for (let i=0;i<account.length;i++) { %>
+                                                    <option value="<%= account[i].account_number %>"
+                                                        <%= account[i].account_number == account_selected ? 'selected' : ''  %>>
+                                                        <%= account[i].account_number + ' - ' + account[i].product + ' ' + account[i].currency %>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                PHƯƠNG PHÁP XÁC THỰC
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chọn phương pháp xác thực <span
+                                                    style="color: red;">(*)</span></th>
+                                            <td>
+                                                <select
+                                                    class="form-control form-control-sm col-md-8 <%= error_code == 5 ? 'alert_box_error': '' %>"
+                                                    id="ppxacthuc" name="ppxacthuc">
+                                                    <option></option>
+                                                    <option>Mật khẩu tĩnh + Email OTP</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form" style="background-color: white; padding-top: 1rem;">
+                                <button type="submit" class="btn btn-primary btn-danger"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;" id="btnOK_tgonline"
+                                    name="btnOK_tgonline">Đồng ý</button>
+                                <a type="button" class="btn btn-primary btn-secondary" href="/"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;">Hủy</a>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib');  -%>

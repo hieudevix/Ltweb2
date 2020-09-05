@@ -1,0 +1,80 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/sala-favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css?v23" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/mystyles.css">
+    <link rel="stylesheet" href="/css/menu-left.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/metisMenu.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
+
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script src="/js/jquery-ui-1.8.24.min.js"></script>
+    <script src="/js/unpkg/jquery.min.js"></script>
+    <script src="/js/unpkg/metisMenu.min.js"></script>
+    <script src="/js/check.js"></script>
+    <script src="/js/numtostring.js"></script>
+
+    <title><%= title %> - Sala iBanking 2020</title>
+</head>
+
+<body>
+    <% if (page_name == 'login' || page_name == 'register' || page_name == 'resetpassword' || page_name == 'update_password') { %>
+    <nav class="navbar navbar-expand-sm navbar-dark py-0 border-danger border-bottom fixed-top"
+        style="background-color: #6f1024;">
+        <div class="container">
+            <a class="navbar-brand d-block d-sm-none" href="tel:1900888888" target="_blank"
+                title="Gọi nhân viên hỗ trợ 24/7">
+                SalaBank Hotline: 1900 88 88 88
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <script>
+                            var mydate = new Date();
+                            var year = mydate.getYear();
+                            if (year < 1000) year += 1900;
+                            var day = mydate.getDay();
+                            var month = mydate.getMonth();
+                            var daym = mydate.getDate();
+                            if (daym < 10) daym = "0" + daym;
+                            var dayarray = new Array("Ch&#7911; nh&#7853;t", "Th&#7913; 2", "Th&#7913; 3", "Th&#7913; 4", "Th&#7913; 5", "Th&#7913; 6", "Th&#7913; 7");
+                            var montharray = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+                            document.write("<div class=\"timer\">" + dayarray[day] + ", ngày " + daym + " tháng " + montharray[month] + " năm " + year + "</div>");
+                        </script>
+                    </li>
+                    <% if (currentUser) { %>
+                    <% } %>
+                </ul>
+                <% if (!currentUser) { %>
+                <ul class="navbar-nav ml-auto top_nav_link">
+                    <li><a class="nav-link border-danger border-left" style="padding: 8.3px 20px;" href="/"><i
+                                class="fa fa-home fa-fw fa-lg" style="line-height:normal;color: white;"></i></a></li>
+                    <li><a class="nav-link border-danger border-left" style="padding: 10px 20px;" href="/"><img
+                                src="/images/icons/icon-vi.png"></a></li>
+                    <li class="d-none d-sm-block">
+                        <a class="navbar-text border-danger border-left"
+                            style="color: white; padding: 7px 0px 7px 20px; text-decoration: none;"
+                            href="tel:1900888888" target="_blank" title="Gọi nhân viên hỗ trợ 24/7">
+                            Dịch vụ khách hàng 24/7: 1900 88 88 88
+                        </a>
+                    </li>
+                </ul>
+                <% } else { %>
+                <span class="navbar-text">Xin chào <%= currentUser.displayName %>!</span><a href="/logout"> (Thoát)</a>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+    <% } %>

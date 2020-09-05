@@ -1,0 +1,144 @@
+<%- include('header_salaib', { title: 'Liệt kê giao dịch trực tuyến'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Quản lý tài khoản</a>
+    <span class="split last"> / </span>
+    <a>Liệt kê giao dịch trực tuyến</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">LIỆT KÊ GIAO DỊCH TRỰC TUYẾN</h1>
+                    <div class="con">
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left" style="padding-left: .5rem;">
+                                                CHỌN TÀI KHOẢN ĐỂ XEM THÔNG TIN CHI TIẾT
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Chọn tài khoản</th>
+                                            <td>
+                                                <select class="form-control form-control-sm col-md-8" id="account"
+                                                    name="account">
+                                                    <option value="all">Tất cả</option>
+                                                    <% for(let i=0; i<account.length;i++){ %>
+                                                    <option
+                                                        <%= account[i].account_number == account_selected ? 'selected' : ''  %>>
+                                                        <%= account[i].account_number %>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Chọn trạng thái</th>
+                                            <td>
+                                                <select class="form-control form-control-sm col-md-8" id="status"
+                                                    name="status">
+                                                    <option value="all"
+                                                        <%= account_status == 'all' ? 'selected' : '' %>>Tất cả</option>
+                                                    <option <%= account_status == 'GD đã hoàn tất' ? 'selected' : '' %>>
+                                                        GD đã hoàn tất</option>
+                                                    <option
+                                                        <%= account_status == 'GD đang chờ xử lý' ? 'selected' : '' %>>
+                                                        GD đang chờ xử lý</option>
+                                                    <option
+                                                        <%= account_status == 'GD do ngân hàng từ chối xử lý' ? 'selected' : '' %>>
+                                                        GD do ngân hàng từ chối xử lý</option>
+                                                </select>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                CHỌN THỜI GIAN GIAO DỊCH
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Từ ngày</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="fromDate" name="fromDate"
+                                                    value="<%= fromDate == null ? moment().add(-1, 'M').format('DD/MM/yyyy') : fromDate %>">
+                                                dd/mm/yyyy
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Đến ngày</th>
+                                            <td>
+                                                <input type="text" class="form-control form-control-sm col-md-8"
+                                                    id="toDate" name="toDate"
+                                                    value="<%= toDate == null ? moment().format('DD/MM/yyyy') : toDate %>">
+                                                dd/mm/yyyy
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-sl-btn-form">
+                                <button type="submit" class="btn btn-primary btn-danger"
+                                    style="padding: .2rem 2.5rem .2rem 2.5rem;">Xem</button>
+                            </div>
+                        </form>
+                        <div class="table-responsive rounded-top" style="margin-top: 1rem">
+                            <table class="table table-striped table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Tài khoản trích tiền</th>
+                                        <th scope="col">Đơn vị thụ hưởng</th>
+                                        <th scope="col">Số tiền</th>
+                                        <th scope="col">Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<arr_trans.length;i++){ %>
+                                    <tr>
+                                        <th scope="row" class="text-center"><%= i+1 %></th>
+                                        <td class="text-center">
+                                            <%= moment(arr_trans[i].date_create).format('DD-MM-YY') %><br>
+                                            <%= moment(arr_trans[i].date_create).format('HH:mm:ss') %>
+                                        </td>
+                                        <td class="text-center"><%= arr_trans[i].from_account_number %></td>
+                                        <td><%= arr_trans[i].beneficiary_unit %></td>
+                                        <td class="text-right">
+                                            <%= new Intl.NumberFormat('vi').format(arr_trans[i].debited) %></td>
+                                        <td>
+                                            <% if (arr_trans[i].status == 'GD đã hoàn tất') { %>
+                                            <span class="badge badge-success"><%= arr_trans[i].status %></span>
+                                            <% } else if (arr_trans[i].status == 'GD đang chờ xử lý') { %>
+                                            <span class="badge badge-secondary"><%= arr_trans[i].status %></span>
+                                            <% } else { %>
+                                            <span class="badge badge-danger"><%= arr_trans[i].status %></span>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib'); -%>

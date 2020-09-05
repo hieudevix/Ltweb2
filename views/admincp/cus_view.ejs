@@ -1,0 +1,291 @@
+<%- include('header_admincp', { title: 'Customer Information' }); -%>
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid-fix">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg></div>
+                            Customer Profile: <%=  user.username + ' - ' + user.displayName %>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <% if (alert == '1') { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Deposit cash successfully!</strong> Account number: <b><%= acc_number %></b> credited amount:
+        <b>+<%= new Intl.NumberFormat('vi').format(amount) %></b> VND. Please check your bank account.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <% } %>
+    <!-- Main page content-->
+    <div class="container mt-4">
+        <!-- Account page navigation-->
+        <nav class="nav nav-borders">
+            <a class="nav-link active ml-0"
+                href="/admincp/customers/view/Request?username=<%= user.username %>">Profile</a>
+            <% if (user.status == '1' || user.status == '2') { %>
+            <a class="nav-link" href="/admincp/customers/trans/Request?username=<%= user.username %>">Transactions</a>
+            <% } %>
+            <% if (user.status == '1') { %>
+            <ul class="nav navbar-nav ml-auto">
+                <button class="btn btn-warning btn-md" type="button" data-toggle="modal"
+                    data-target="#exampleModalCash">Cash deposit</button>
+                <div class="modal fade" id="exampleModalCash" data-backdrop="static" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCashTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCashTitle">Cash Deposit >
+                                    <%=  user.username + ' - ' + user.displayName %></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="POST">
+                                <input type="hidden" id="username" name="username" value="<%= user.username %>">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="account" class="col-form-label">Account:</label>
+                                        <select class="form-control" id="account_number" name="account_number"
+                                            autofocus>
+                                            <% for (let i=0;i<user.accounts.length;i++) { %>
+                                            <% if (user.accounts[i].account_number.startsWith('2')) { %>
+                                            <option><%= user.accounts[i].account_number %></option>
+                                            <% } %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sotien" class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="sotien" name="sotien"
+                                            onkeypress="return isNumberKey(event);" required
+                                            onchange="this.value = changeAmount(this.value);" maxlength="18">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sotienbangchu" class="col-form-label">Amount in words:</label>
+                                        <textarea cols="" rows="" class="form-control" wrap="soft" id="sotienbangchu"
+                                            name="sotienbangchu" readonly></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="recaptcha_submit"></div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    
+                                    <a type="button" class="btn btn-secondary" href="javascript:void(0)"
+                                        onclick="location.href=`./Request?username=<%= user.username %>`">Cancel</a>
+                                    <button type="submit" class="btn btn-primary" name="btnCash"
+                                        value="btnCash">Submit</button>
+                                </div>
+                            </form>
+                            <script
+                                    src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                                    async defer>
+                                    </script>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            <% } %>
+        </nav>
+        <hr class="mt-0 mb-4">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-xl-4">
+                    <!-- Profile picture card-->
+                    <div class="card">
+                        <div class="card-header">Profile Picture</div>
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img class="img-account-profile rounded-circle mb-2" id="imgAvatar"
+                                src="<%= user.avatar ? 'data:image/png;base64, ' + user.avatar : '/images/user-no-avatar-user.png' %>"
+                                alt="avatar-customer">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4 view_avatar" style="display:none">
+                                JPG or PNG no larger than 5 MB</div>
+                            <!-- Profile picture upload button-->
+                            <button class="btn btn-primary view_avatar btn-file" style="display:none">
+                                Upload new avatar <input type="file" id="avatar" name="avatar">
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Collapsable Accounts Card -->
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Accordion -->
+                        <a href="#collapseCardAccounts" class="d-block card-header py-3" data-toggle="collapse"
+                            role="button" aria-expanded="true" aria-controls="collapseCardAccounts">
+                            <h6 class="m-0 font-weight-bold text-primary">Accounts</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="collapseCardAccounts" style="">
+                            <div class="card-body">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Account Number</th>
+                                            <th scope="col">Current Balance</th>
+                                            <th scope="col">Product</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for( let i = 0; i < user.accounts.length; i++ ) { %>
+                                        <tr
+                                            style="<%= user.accounts[i].isClosed ? 'text-decoration: line-through' : '' %>">
+                                            <th scope="row">
+                                                <%= user.accounts[i].account_number %>
+                                            </th>
+                                            <td><%= new Intl.NumberFormat('vi').format(user.accounts[i].current_balance) + ' ' + user.accounts[i].currency %>
+                                            </td>
+                                            <td><%= user.accounts[i].product %></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card card-header-actions mb-4">
+                        <div class="card-header">Account Details
+                            <% if (user.status == '1' || user.status == '0') { %>
+                            <button class="btn btn-sm btn-primary" id="btnView_Edit" type="button">Edit</button>
+                            <% } %>
+                        </div>
+                        <div class="card-body">
+
+                            <!-- Form Row-->
+                            <div class="form-row">
+                                <!-- Form Group (Username)-->
+                                <div class="form-group col-md-4">
+                                    <label class="small mb-1" for="username">Username</label>
+                                    <input class="form-control" id="username" name="username" type="text"
+                                        placeholder="Enter your Username" value="<%= user.username %>" readonly>
+                                </div>
+                                <!-- Form Group (Email)-->
+                                <div class="form-group col-md-8">
+                                    <label class="small mb-1" for="email">Email</label>
+                                    <input class="form-control editField" id="email" name="email" type="email"
+                                        placeholder="Enter your Email" value="<%= user.email %>" readonly>
+                                </div>
+                            </div>
+                            <!-- Form Group (DisplayName)-->
+                            <div class="form-group">
+                                <label class="small mb-1" for="displayName">DisplayName</label>
+                                <input class="form-control editField" id="displayName" name="displayName" type="text"
+                                    placeholder="Enter your DisplayName" value="<%= user.displayName %>" readonly>
+                            </div>
+                            <!-- Form Row -->
+                            <div class="form-row">
+                                <!-- Form Group (Identification)-->
+                                <div class="form-group col-md-4">
+                                    <label class="small mb-1" for="identification">Identification</label>
+                                    <select id="identification" name="identification"
+                                        class="form-control editSelectField" disabled>
+                                        <option <%= user.identification == 'CMND' ? 'selected' : '' %>>CMND</option>
+                                        <option <%= user.identification == 'CCCD' ? 'selected' : '' %>>CCCD</option>
+                                        <option <%= user.identification == 'Hộ chiếu' ? 'selected' : '' %>>Hộ chiếu
+                                        </option>
+                                    </select>
+                                </div>
+                                <!-- Form Group (NumberId)-->
+                                <div class="form-group col-md-8">
+                                    <label class="small mb-1" for="inputLocation">NumberId</label>
+                                    <input class="form-control editField" id="numberId" name="numberId" type="text"
+                                        placeholder="Enter your NumberId" value="<%= user.numberId %>" readonly>
+                                </div>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="form-row">
+                                <!-- Form Group (DateRange)-->
+                                <div class="form-group col-md-4">
+                                    <label class="small mb-1" for="dateRange">DateRange</label>
+                                    <input class="form-control editField" id="dateRange" name="dateRange" type="text"
+                                        placeholder="Enter your DateRange"
+                                        value="<%= user.dateRange.split('-').reverse().join('-') %>" readonly>
+                                </div>
+                                <!-- Form Group (ImgId)-->
+                                <div class="form-group col-md-8">
+                                    <label class="small mb-1" for="imgId">ImgId</label>
+                                    <img type="button" class="img-account-profile form-control" id="imgId"
+                                        data-toggle="modal" data-target="#exampleModal"
+                                        src="data:image/png;base64, <%= user.imgId %>">
+                                    <button class="btn btn-sm btn-primary view_avatar btn-file" style="display:none">
+                                        Upload new ImgId <input type="file" id="ImgId" name="imgId">
+                                    </button>
+                                </div>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <img class="form-control" style="height:100%;width:100%;"
+                                                    id="imgId-modal" src="data:image/png;base64, <%= user.imgId %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Form Group (Status)-->
+                            <div class="form-group">
+                                <label class="small mb-1" for="Status">Status</label>
+                                <% if (user.status == '0') { %>
+                                <input readonly class="form-control-plaintext" id="status" name="status" type="text"
+                                    placeholder="Enter your Status"
+                                    style="color:#6c757d;outline: none;font-weight: bold;" value="Chưa xác thực">
+                                <% } else if (user.status == '1') { %>
+                                <input readonly class="form-control-plaintext" id="status" name="status" type="text"
+                                    placeholder="Enter your Status"
+                                    style="color:#007bff;outline: none;font-weight: bold;" value="Đã xác thực">
+                                <% } else if (user.status == '2') { %>
+                                <input readonly class="form-control-plaintext" id="status" name="status" type="text"
+                                    placeholder="Enter your Status"
+                                    style="color:#dc3545;outline: none;font-weight: bold;" value="Đã bị khóa">
+                                <% } else { %>
+                                <input readonly class="form-control-plaintext" id="status" name="status" type="text"
+                                    placeholder="Enter your Status"
+                                    style="color:#ffc107;outline: none;font-weight: bold;" value="Bị từ chối">
+                                <% } %>
+                            </div>
+                            <% if (user.status == '0') { %>
+                            <a class="btn btn-success float-left mx-2 px-3" type="button" href="javascript:void(0)"
+                                onclick="location.href=`<%= './auth/' + user.id + '/' + '1' %>`">Authenticate</a>
+                            <a class="btn btn-warning float-left mx-2 px-3" type="button" href="javascript:void(0)"
+                                onclick="location.href=`<%= './auth/' + user.id + '/' + '-1' %>`">Refuse</a>
+                            <button class="btn btn-primary float-right mx-2 px-3 btnView_Save" type="submit"
+                                style="display:none;" disabled>Save changes</button>
+                            <% } else if (user.status == '1') { %>
+                            <button class="btn btn-primary float-right mx-2 px-3 btnView_Save" type="submit"
+                                style="display:none;" disabled>Save changes</button>
+                            <a class="btn btn-danger float-right mx-2 px-3" type="button" href="javascript:void(0)"
+                                onclick="location.href=`<%= './auth/' + user.id + '/' + '2' %>`">Lock account</a>
+                            <% } else if (user.status == '2') { %>
+                            <a class="btn btn-success float-left mx-2 px-3" type="button" href="javascript:void(0)"
+                                onclick="location.href=`<%= './auth/' + user.id + '/' + '11' %>`">Open again</a>
+                            <% } else { %>
+                            <a class="btn btn-success float-left mx-2 px-3" type="button" href="javascript:void(0)"
+                                onclick="location.href=`<%= './auth/' + user.id + '/' + '1' %>`">Authenticate</a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<%- include('footer_admincp'); -%>

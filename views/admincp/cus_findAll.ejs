@@ -1,0 +1,105 @@
+<%- include('header_admincp', { title: 'Find Customer Information' }); -%>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Customer / Looking For Information</h1>
+    </div>
+    <p class="mb-4">Find all customer information...</p>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Customers</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive datatable">
+                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                    cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>DisplayName</th>
+                            <th>NumberId</th>
+                            <th>Status</th>
+                            <th>Accounts</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>DisplayName</th>
+                            <th>NumberId</th>
+                            <th>Status</th>
+                            <th>Accounts</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <% for( let i = 0; i < users.length; i++ ) { %>
+                        <tr>
+                            <td><%= users[i].username %></td>
+                            <td><%= users[i].email %></td>
+                            <td><%= users[i].displayName %></td>
+                            <td>
+                                <div class="badge badge-primary badge-pill"><%= users[i].numberId %></div>
+                            </td>
+                            <td>
+                                <% if (users[i].status == '0') { %>
+                                <div class="badge badge-secondary badge-pill">Chưa xác thực</div>
+                                <% } else if (users[i].status == '1') { %>
+                                <div class="badge badge-primary badge-pill">Đã xác thực</div>
+                                <% } else if (users[i].status == '2') { %>
+                                <div class="badge badge-danger badge-pill">Đã bị khóa</div>
+                                <% } else { %>
+                                <div class="badge badge-warning badge-pill">Bị từ chối</div>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% for( let ii = 0; ii < users[i].accounts.length; ii++ ) { %>
+                                <%= users[i].accounts[ii].account_number %>
+                                <% } %>
+                            </td>
+                            <td>
+                                <div class="dropdown no-arrow text-center">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user-cog fa-fw text-gray-500"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink">
+                                        <% if (users[i].status != '0') { %>
+                                        <div class="dropdown-header">Actions:</div>
+                                        <% if (users[i].status == '1') { %>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            onclick="location.href=`<%= './findAll/auth/' + users[i].id + '/' + '2' %>`">
+                                            Lock User</a>
+                                        <% } else { %>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            onclick="location.href=`<%= './findAll/auth/' + users[i].id + '/' + '11' %>`">
+                                            Open Again</a>
+                                        <% } %>
+                                        <div class="dropdown-divider"></div>
+                                        <% } %>
+                                        <a class="dropdown-item" href="javascript:void(0)"
+                                            onclick="location.href=`<%= './view/Request?username=' + users[i].username%>`">
+                                            View more</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+<%- include('footer_admincp'); -%>

@@ -1,0 +1,191 @@
+<%- include('header_salaib', { title: 'Chi tiết thông tin tài khoản'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Quản lý tài khoản</a>
+    <span class="last"> / </span>
+    <a>Thông tin tài khoản</a>
+    <span class="split last"> / </span>
+    <a>Chi tiết</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="">
+                    <h1 class="title">CHI TIẾT THÔNG TIN TÀI KHOẢN</h1>
+                    <div class="con">
+                        <form method="POST" class="form-light">
+                            <div class="table-responsive rounded-top">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" scope="col" class="text-left" style="padding-left: .5rem;">
+                                                TÀI KHOẢN
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" style="width:30%">Chọn tài khoản</th>
+                                            <td style="width:65%">
+                                                <select class="form-control form-control-sm col-md-8" id="accountNbr"
+                                                    name="accountNbr">
+                                                    <% for(let i=0; i<account.length;i++){ %>
+                                                    <option
+                                                        <%= account[i].account_number == account_selected ? 'selected' : '' %>>
+                                                        <%= account[i].account_number %>
+                                                    </option>
+                                                    <% } %>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" scope="col" class="text-left rounded-top"
+                                                style="padding-left: .5rem; border-top:none">
+                                                XEM CHI TIẾT THÔNG TIN TÀI KHOẢN THEO THỜI GIAN GIAO DỊCH
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:50%">
+                                                <table class="table table-sm">
+                                                    <tbody>
+                                                        <th colspan="2">Theo ngày</th>
+                                                        <tr>
+                                                            <td>Từ ngày</td>
+                                                            <td>
+                                                                <input type="text"
+                                                                    class="form-control form-control-sm col-md-9"
+                                                                    id="fromDate" name="fromDate" style="display:inline"
+                                                                    value="<%= fromDate == null ? moment().add(-1, 'M').format('DD/MM/yyyy') : fromDate %>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Đến ngày</td>
+                                                            <td>
+                                                                <input type="text"
+                                                                    class="form-control form-control-sm col-md-9"
+                                                                    id="toDate" name="toDate"
+                                                                    style="display:inline-block"
+                                                                    value="<%= toDate == null ? moment().format('DD/MM/yyyy') : toDate %>">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" align="center">
+                                                                <div class="table-sl-btn-form">
+                                                                    <button type="submit" name="btnViewDay"
+                                                                        value="viewDay"
+                                                                        class="btn btn-sm btn-primary btn-danger"
+                                                                        style="padding: .2rem 2.5rem .2rem 2.5rem;">Xem</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+
+                                            <td style="width:50%">
+                                                <table class="table table-sm">
+                                                    <tbody>
+                                                        <th colspan="2">Theo tháng</th>
+                                                        <tr>
+                                                            <td>Tháng</td>
+                                                            <td>
+                                                                <select class="form-control form-control-sm col-md-9"
+                                                                    id="monthDate" name="monthDate">
+                                                                    <% for(let i=0; i<12;i++){ %>
+                                                                    <option <%= monthDate == i + 1 ? 'selected' : '' %>>
+                                                                        <%= i + 1 %>
+                                                                    </option>
+                                                                    <% } %>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Năm</td>
+                                                            <td>
+                                                                <select class="form-control form-control-sm col-md-9"
+                                                                    id="yearDate" name="yearDate">
+                                                                    <% for(let i=3;i>=0;i--){ %>
+                                                                    <option
+                                                                        <%= yearDate == (moment().format('yyyy') - i) ? 'selected' : '' %>>
+                                                                        <%= moment().format('yyyy') - i %>
+                                                                    </option>
+                                                                    <% } %>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2" align="center">
+                                                                <div class="table-sl-btn-form">
+                                                                    <button type="submit" name="btnViewMonth"
+                                                                        value="viewMonth"
+                                                                        class="btn btn-sm btn-primary btn-danger"
+                                                                        style="padding: .2rem 2.5rem .2rem 2.5rem;">Xem</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <div class="ttct_sodu" align="right">Số dư đầu:
+                            <%= new Intl.NumberFormat('vi').format(beginBalance) + ' (' + currency + ')' %></div>
+                        <div class="table-responsive rounded-top">
+                            <table class="table table-striped table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ngày</th>
+                                        <th scope="col">Số GD</th>
+                                        <th scope="col">Diễn giải</th>
+                                        <th scope="col">Ghi nợ</th>
+                                        <th scope="col">Ghi có</th>
+                                        <th scope="col">Số dư</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<arr_trans.length;i++){ %>
+                                    <tr>
+                                        <td scope="row" class="text-center">
+                                            <%= moment(arr_trans[i].date_create).format('DD-MM-YY') %></td>
+                                        <td class="text-center" value="<%= arr_trans[i].trans_code %>"><%= 2000 + arr_trans[i].id %></td>
+                                        <td class="w-50"><%= arr_trans[i].content %></td>
+                                        <td class="text-right">
+                                            <%= arr_trans[i].debited ? new Intl.NumberFormat('vi').format(arr_trans[i].debited) : '' %>
+                                        </td>
+                                        <td class="text-right">
+                                            <%= arr_trans[i].credited ? new Intl.NumberFormat('vi').format(arr_trans[i].credited) : '' %>
+                                        </td>
+                                        <td class="text-right">
+                                            <%= new Intl.NumberFormat('vi').format(arr_trans[i].current_balance) %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div align="right" style="font-weight: bold; font-size: 13px; color: #636464;">
+                            Tổng rút ra: <%= new Intl.NumberFormat('vi').format(sum_withdrawal) + ' (' + currency + ')' %>
+                        </div>
+                        <div align="right" style="font-weight: bold; font-size: 13px; color: #636464;">
+                            Tổng gửi vào: <%= new Intl.NumberFormat('vi').format(sum_deposit) + ' (' + currency + ')' %>
+                        </div>
+                        <div class="ttct_sodu" align="right">Số dư cuối:
+                            <%= new Intl.NumberFormat('vi').format(endBalance) + ' (' + currency + ')' %></div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib'); -%>

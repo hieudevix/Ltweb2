@@ -1,0 +1,196 @@
+<%- include('header_admincp', { title: 'Customer Transactions' }); -%>
+
+<main>
+    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
+        <div class="container-fluid-fix">
+            <div class="page-header-content">
+                <div class="row align-items-center justify-content-between pt-3">
+                    <div class="col-auto mb-3">
+                        <h1 class="page-header-title">
+                            <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg></div>
+                            Customer Profile: <%=  user.username + ' - ' + user.displayName %>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <% if (alert == '1') { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Deposit cash successfully!</strong> Account number: <b><%= acc_number %></b> credited amount:
+        <b>+<%= new Intl.NumberFormat('vi').format(amount) %></b> VND. Please check your bank account.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <% } %>
+    <!-- Main page content-->
+    <div class="container mt-4">
+        <!-- Account page navigation-->
+        <nav class="nav nav-borders">
+            <a class="nav-link" href="/admincp/customers/view/Request?username=<%= user.username %>">Profile</a>
+            <a class="nav-link active ml-0"
+                href="/admincp/customers/trans/Request?username=<%= user.username %>">Transactions</a>
+            <% if (user.status == '1') { %>
+            <ul class="nav navbar-nav ml-auto">
+                <button class="btn btn-warning btn-md" type="button" data-toggle="modal"
+                    data-target="#exampleModalCash">Cash deposit</button>
+                <div class="modal fade" id="exampleModalCash" data-backdrop="static" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCashTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCashTitle">Cash Deposit >
+                                    <%=  user.username + ' - ' + user.displayName %></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="POST">
+                                <input type="hidden" id="username" name="username" value="<%= user.username %>">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="account" class="col-form-label">Account:</label>
+                                        <select class="form-control" id="account_number" name="account_number"
+                                            autofocus>
+                                            <% for (let i=0;i<user.accounts.length;i++) { %>
+                                            <% if (user.accounts[i].account_number.startsWith('2')) { %>
+                                            <option><%= user.accounts[i].account_number %></option>
+                                            <% } %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sotien" class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="sotien" name="sotien"
+                                            onkeypress="return isNumberKey(event);" required
+                                            onchange="this.value = changeAmount(this.value);" maxlength="18">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sotienbangchu" class="col-form-label">Amount in words:</label>
+                                        <textarea cols="" rows="" class="form-control" wrap="soft" id="sotienbangchu"
+                                            name="sotienbangchu" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-label-group">
+                                    <div id="recaptcha_login"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-secondary" href="javascript:void(0)"
+                                        onclick="location.href=`./Request?username=<%= user.username %>`">Cancel</a>
+                                    <button type="submit" class="btn btn-primary" name="btnCash"
+                                        value="btnCash">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            <% } %>
+        </nav>
+        <hr class="mt-0 mb-4">
+        <div class="row">
+
+            <% let total = 0 %>
+            <% for( let i = 0; i < user.accounts.length; i++ ) { %>
+            <div class="col-lg-4 mb-4">
+                <!-- Card Accounts-->
+                <div class="card h-100 border-left-lg border-left-primary">
+                    <div class="card-body">
+                        <div class="small text-muted"><%= user.accounts[i].account_number %></div>
+                        <div class="h3">
+                            <%= new Intl.NumberFormat('vi').format(user.accounts[i].current_balance) + ' ' + user.accounts[i].currency %>
+                        </div>
+                        <a class="text-arrow-icon small" href="#!">
+                            View history
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-arrow-right">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <% total = Number(total) + Number(user.accounts[i].current_balance) %>
+            <% } %>
+
+            <div class="col-lg-4 mb-4">
+                <!-- Card Total-->
+                <div class="card h-100 border-left-lg border-left-success">
+                    <div class="card-body">
+                        <div class="small text-muted">Total current balance</div>
+                        <div class="h3 d-flex align-items-center">
+                            <%= new Intl.NumberFormat('vi').format(total) + ' ' + user.accounts[0].currency %></div>
+                        <a class="text-arrow-icon small text-success" href="#!">
+                            View more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-arrow-right">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Transactions</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive datatable">
+                    <table class="table table-bordered table-hover table-striped" id="dataTable_cusTrans" width="100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>DateCreate</th>
+                                <th>Account</th>
+                                <th>TransCode</th>
+                                <th>Content</th>
+                                <th>Debited</th>
+                                <th>Credited</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>DateCreate</th>
+                                <th>Account</th>
+                                <th>TransCode</th>
+                                <th>Content</th>
+                                <th>Debited</th>
+                                <th>Credited</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% for( let i = 0; i < trans.length; i++ ) { %>
+                            <tr>
+                                <td><%= moment(trans[i].date_create).format('DD-MM-YY HH:mm:ss') %></td>
+                                <td><%= trans[i].to_account_number %></td>
+                                <td>
+                                    <div class="badge badge-primary badge-pill"><%= trans[i].trans_code %></div>
+                                </td>
+                                <td><%= trans[i].content %></td>
+                                <td><%= trans[i].debited ? new Intl.NumberFormat('vi').format(trans[i].debited) : '' %>
+                                </td>
+                                <td><%= trans[i].credited ? new Intl.NumberFormat('vi').format(trans[i].credited) : '' %>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('footer_admincp'); -%>

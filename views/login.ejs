@@ -1,0 +1,171 @@
+<%- include('header', { title: 'Đăng nhập' }); -%>
+
+<div class="body-main">
+    <div class="full-slider" style="padding-top: 40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 d-none d-sm-block">
+                    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <h3>Đổi tên đăng nhập</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <img class="d-block w-100 rounded" src="/images/login/slide/doi_ten_dn.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-none d-md-block">
+                                            <p>
+                                                ► Bạn thấy khó nhớ tên đăng nhập Sala-iBanking?<br>
+                                                ► Bạn muốn sử dụng tên đăng nhập dễ nhớ hoặc có ý nghĩa?<br>
+                                                ► Hãy đổi tên đăng nhập Sala-iBanking theo hướng dẫn
+                                            </p>
+                                        </div>
+                                        <ol class="carousel-indicators" style="position: relative;">
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="0"
+                                                class="active">
+                                            </li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <h3>SalaBank điều chỉnh phí rút tiền mặt tại ATM</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <img class="d-block w-100 rounded" src="/images/login/slide/20191126.jpg"
+                                            alt="Second slide">
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-none d-md-block">
+                                            <p>
+                                                ► Phí rút tiền mặt tại ATM ngoài hệ thống SalaBank cho thẻ ghi nợ nội
+                                                địa SalaBank chỉ còn 2.500 vnd/giao dịch (chưa VAT) thay vì 3.000
+                                                vnd/giao dich như trước đây<br>
+                                                ► Từ 15/11/2019 đến 31/12/2020<br>
+                                                ► Áp dụng toàn quốc
+                                            </p>
+                                        </div>
+                                        <ol class="carousel-indicators" style="position: relative;">
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="0">
+                                            </li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"
+                                                class="active"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <h3>SalaBank Smart OTP</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <img class="d-block w-100 rounded"
+                                            src="/images/login/slide/smart-OTP-featured.jpg" alt="Third slide">
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-none d-md-block">
+                                            <p>
+                                                ► An toàn, bảo mật<br>
+                                                ► Đăng ký dễ dàng trên các kênh trực tuyến<br>
+                                                ► Hoàn toàn miễn phí
+                                            </p>
+                                            <ol class="carousel-indicators" style="position: relative;">
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="0">
+                                                </li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="2"
+                                                    class="active"></li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-signin"
+                        style="border-radius: 1.5rem; padding: 0 10px; top: 40px; z-index: 1000">
+                        <div class="card-body">
+                            <div class="text-right"><img style="max-width: 45%; height: auto;"
+                                    src="/images/logo-sala-bank.png"></div>
+                            <h1 class="card-title text-right fadein_animation"
+                                style="margin-bottom: 0; color: #dbbc55; letter-spacing: .1rem; font-weight: bold;">
+                                SalaBank</h1>
+                            <p class="card-text text-right">
+                                <small style="color: #dacd9f;">
+                                    Tròn niềm tin vững tài chính
+                                </small>
+                            </p>
+                            <h5 class="card-text text-right" style="margin-bottom: 2rem; color: #cbb97b;">NGÂN HÀNG TRỰC
+                                TUYẾN</h5>
+                            <% if (error) { %>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Lỗi!</strong> <%= error %>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <% } %>
+                            <form id="loginForm" method="POST" class="form-signin">
+                                <div class="form-label-group">
+                                    <input type="username" class="form-control" id="username" name="username"
+                                        aria-describedby="numHelp" placeholder="Tên đăng nhập" required>
+                                    <label for="username">Tên đăng nhập</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        aria-describedby="numHelp" placeholder="Mật khẩu đăng nhập" required>
+                                    <label for="password">Mật khẩu</label>
+                                </div>
+                                <div class="form-label-group">
+                                    <div id="recaptcha_login"></div>
+                                </div>
+
+                                <div class="control fix-ie" style="text-align: center;">
+                                    <button type="submit" class="btn-hover color" style="text-transform: uppercase;">
+                                        Đăng nhập
+                                    </button>
+                                </div>
+                                <div class="login-link">
+                                    <p><a href="/register">Đăng ký tài khoản?</a></p>
+                                    <p><a href="/resetpassword">Quên mật khẩu?</a></p>
+                                    <p><a target="_blank" href="/upload/pdf/huong_dan_gd_nhdt.pdf">Hướng dẫn giao dịch
+                                            an toàn</a>
+                                    </p>
+                                </div>
+                            </form>
+                            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                                async defer>
+                                </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="full-content-login box-content">
+        <div class="d-none d-sm-block" style="width: 960px; margin: 0 auto">
+            <div class="box-support-service fix-dichvu">
+                <div class="f2">
+                    <div class="huongdan-canhan"><a target="_blank" href="/upload/pdf/huong_dan_su_dung_dich_vu.pdf">
+                            Hướng dẫn sử dụng (cá nhân)</a></div>
+                    <div class="faq"><a target="_blank" href="/upload/pdf/cau_hoi_thuong_gap.pdf">
+                            Câu hỏi thường gặp</a></div>
+                </div>
+                <div class="f3">
+                    <div class="bieuphi"><a target="_blank" href="/upload/pdf/bieuphi_canhan.pdf">Biểu phí dịch vụ</a>
+                    </div>
+                    <div class="dieukhoan"><a target="_blank" href="/upload/pdf/dieu-khoan.pdf">
+                            Điều khoản sử dụng</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer'); -%>

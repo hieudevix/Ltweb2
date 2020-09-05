@@ -1,0 +1,71 @@
+<%- include('header_salaib', { title: 'Thông tin tài khoản'}); -%>
+<div class="breadcrumb_sala">
+    <a>Trang chủ</a>
+    <span class="split"> / </span>
+    <a>Quản lý tài khoản</a>
+    <span class="split last"> / </span>
+    <a>Thông tin tài khoản</a>
+</div>
+<div class="main_con">
+    <ul class="main_con_ul">
+        <li class="main_con_item">
+            <ul>
+                <li class="check">
+                    <h1 class="title">THÔNG TIN TÀI KHOẢN</h1>
+                    <div class="con">
+                        <div class="table-responsive rounded-top">
+                            <table class="table table-striped table-hover table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Số tài khoản</th>
+                                        <th scope="col">Đơn vị mở TK</th>
+                                        <th scope="col">Số dư</th>
+                                        <th scope="col">Ngày đáo hạn</th>
+                                        <th scope="col">Sản phẩm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let i=0; i<tttk.length;i++){ %>
+                                    <tr style="<%= tttk[i].isClosed ? 'text-decoration: line-through' : '' %>">
+                                        <th scope="row" class="text-center"><a href="/salaib/Request?operationName=thong_tin_tai_khoan&operationNameChild=no_child&accountNbr=<%= tttk[i].account_number %>"><%= tttk[i].account_number %></a></th>
+                                        <td><%= tttk[i].account_opening_unit %></td>
+                                        <td class="text-right">
+                                            <b><%= new Intl.NumberFormat('vi').format(tttk[i].current_balance) %></b> (<%= tttk[i].currency %>)
+                                            <sup class="chuthich_num">1</sup>
+                                            <% if (tttk[i].current_balance != 0) { %>
+                                                <br><b><%= new Intl.NumberFormat('vi').format(tttk[i].available_balance) %></b> (<%= tttk[i].currency %>)
+                                                <sup class="chuthich_num">2</sup>
+                                            <% } %>
+                                        </td>
+                                        <td class="text-center"><%= tttk[i].date_due ? moment(tttk[i].date_due).format('DD-MM-YY') : '' %></td>
+                                        <td><%= tttk[i].product %> <%= tttk[i].currency %></td>
+                                    </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="giaithich">
+                            <span class="red_tieude"><sup class="chuthich_num">1</sup> SỐ DƯ THỰC (CURRENT
+                                BALANCE)</span>
+                            <br>
+                            Là số dư có thực tế trên tài khoản tiền gửi của khách hàng.
+                            <br>
+                            <br>
+                            <span class="red_tieude"><sup class="chuthich_num">2</sup> SỐ DƯ KHẢ DỤNG (AVAILABLE
+                                BALANCE)</span>
+                            <br>
+                            Là số dư trên tài khoản tiền gửi thanh toán mà khách hàng được phép sử dụng. Trong trường
+                            hợp khách
+                            hàng được cấp hạn mức thấu chi thì số dư khả dụng bằng tổng số dư thực cộng với hạn mức thấu
+                            chi trừ
+                            đi số tiền bị phong tỏa trên tài khoản (nếu có).
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<%- include('footer_salaib'); -%>

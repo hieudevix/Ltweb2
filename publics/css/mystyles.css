@@ -1,0 +1,466 @@
+a.nav-link:hover { background-color: #7c3e49; }
+
+body {
+    background: url("../images/background.jpg") left; /* #771224 */
+}
+
+.body-main {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.timer {
+    float: left;
+    color: white;
+}
+
+.carousel-item h3 {
+    padding: 10px 0px; 
+    color: #6f1024; 
+    font-size: 27px; 
+    font-family: 'Kuro', Arial, Tahoma;
+    font-weight: bold;
+}
+
+/*# Custom Page Login */
+.full-slider {
+    width: 100%;
+    background: url("../images/login/bg-login-top.png") no-repeat center;
+    height: 462px;
+    clear: both;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.full-content-login {
+    background: url("../images/login/bg_login_png.png") no-repeat scroll center top;
+    clear: both;
+    display: inline-block;
+    min-height: 530px;
+    position: relative;
+    top: -202px;
+    width: 100%;
+    z-index: 999;
+}
+
+.box-content .box-support-service {
+    clear: both;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    width: 600px;
+    float: left;
+}
+.fix-dichvu {
+    padding-top: 185px;
+}
+
+.box-content .box-support-service .f1, .box-content .box-support-service .f2, .box-content .box-support-service .f3 {
+    float: left;
+    font-size: 14px;
+    padding: 0 80px 0 0;
+}
+
+.box-support-service .f2 .huongdan-canhan {
+    background: url("../images/login/icon-canhan.png") no-repeat scroll 0 0;
+    padding: 15px 0 22px 50px;
+    border-bottom: 1px dotted #E74C3C;
+}
+
+.box-support-service .f2 .faq {
+    background: url("../images/login/icon-faq.png") no-repeat scroll 0 0;
+    padding: 12px 0 12px 50px;
+}
+
+.box-support-service .f3 .bieuphi {
+    background: url("../images/login/icon-bieuphi.png") no-repeat scroll 0 0;
+    padding: 15px 0 22px 50px;
+    border-bottom: 1px dotted #E74C3C;
+}
+
+.box-support-service .f3 .dieukhoan {
+    background: url("../images/login/icon-dieukhoan.png") no-repeat scroll 0 0;
+    padding: 12px 0 12px 50px;
+}
+
+.f1 div, .f2 div, .f3 div {
+    margin: 10px 0;
+}
+
+.f1 div a, .f2 div a, .f3 div a {
+    background: none;
+    padding: 0 !important;
+    color: #FFF;
+    font-family: Arial, Tahoma;
+}
+
+.f1 div a:hover, .f2 div a:hover, .f3 div a:hover{
+    color: #c57d89;
+}
+/*# Custom END - Page Login */
+
+/*# Custom fadein_animation */
+.fadein_animation {
+    margin-top: auto;
+    font-size: auto;
+    text-align: center;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s; /* Firefox */
+    -webkit-animation: fadein 2s; /* Safari and Chrome */
+    -o-animation: fadein 2s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/*# END - fadein_animation */
+
+/*# Custom Form Login */
+:root {
+    --input-padding-x: 1.5rem;
+    --input-padding-y: .75rem;
+}
+
+.card-signin {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: #222 0 1px 7px 0;
+}
+  
+.card-signin .card-title {  
+    margin-bottom: 2rem;
+    font-weight: 500;
+    font-size: 2rem;
+}
+  
+.card-signin .card-body {
+    padding: 2rem;
+}
+  
+.form-signin {
+    width: 100%;
+}
+  
+.form-signin .btn {
+    font-size: 100%;
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    font-weight: bold;
+    padding: 1rem;
+    transition: all 0.2s;
+    background: linear-gradient(#eb797b, #8b2639);
+}
+
+.form-signin .control {
+    clear: both;
+    float: left;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+ 
+.form-label-group input, .form-label-group select {
+    height: auto;
+    border-radius: 2rem;
+}
+  
+.form-label-group>input,
+.form-label-group>label {
+    padding: var(--input-padding-y) var(--input-padding-x);
+}
+ 
+.form-label-group>label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    /* Override default `<label>` margin */
+    line-height: 1.5;
+    color: #495057;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+    cursor: text;
+}
+  
+.form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+  
+.form-label-group input:-ms-input-placeholder {
+    color: transparent;
+}
+  
+.form-label-group input::-ms-input-placeholder {
+    color: transparent;
+}
+  
+.form-label-group input::-moz-placeholder {
+    color: transparent;
+}
+  
+.form-label-group input::placeholder {
+    color: transparent;
+}
+  
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+    padding-bottom: calc(var(--input-padding-y) / 3);
+}
+  
+.form-label-group input:not(:placeholder-shown)~label {
+    padding-top: calc(var(--input-padding-y) / 3);
+    padding-bottom: calc(var(--input-padding-y) / 3);
+    font-size: 12px;
+    color: #777;
+}
+
+.login-link {
+    padding-top: 15px;
+    float: left;
+    border-top: 1px dotted #bbbbbb;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.login-link p {
+    margin-bottom: 4px;
+}
+
+.login-link a {
+    color: #222;
+    font-family: Arial,Tahoma !important;
+    font-size: 13px !important;
+    background: url("../images/login/nav-left-icon.png") no-repeat left;
+    padding-left: 15px;
+    font-size: 13px;
+}
+
+a, a:link, a:visited, a:hover {
+    text-decoration: none;
+}
+/*# END - Custom Form Login */
+
+/*Custom BUTTON - LOGIN */
+.btn-hover {
+    width: 60%;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    height: 45px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color {
+    background-image: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);  
+    box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+/*Custom END BUTTON - LOGIN */
+
+/*Custom ROUTE - salaib */
+.header-right {
+    float: right;
+    margin-right: 0px;
+}
+
+#content .header {
+    float: left;
+    background: #f1f1f1;
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    padding: 0rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table > tbody > tr > th, .table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+#content .chuthich_num  {
+    color: red;
+}
+
+#content table thead tr th {
+    border-style: none;
+    color: #fff;
+    height: 56px;
+    font-family: arial;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 8px 5px 5px 5px;
+    text-align: center;
+    background-color: #d42a30;
+    border-top: #dab94e .5rem solid;
+}
+
+#content table tbody tr th, #content table tbody tr td {
+    border-style: none;
+    font-family: arial;
+    font-size: 14px;
+    color: #636464;
+    border-spacing: 0;
+}
+
+.giaithich {
+    font-family: arial;
+    font-size: 12px;
+    color: #636464;
+    border-spacing: 0;
+}
+
+.giaithich .red_tieude {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 13px;
+    color: #636464;
+    border-spacing: 0;
+}
+
+.luu-y {
+    font-family: Arial;
+    font-size: 13px;
+    font-weight: normal;
+    color: #494949;
+    font-style: italic;
+    text-decoration: none;
+}
+/*Custom END ROUTE - salaib */
+
+/*Custom TABLE - salaib */
+.form-light { background-color: rgba(0,0,0,.05); }
+.table-sl-btn-form { padding-bottom: 2rem; text-align: center;}
+/*Custom END TABLE - salaib */
+
+.show_detail_account {
+    font-size: 14px;
+    color: #0073b9;
+    margin-top: .5rem;
+}
+
+.show_detail_account > input {
+    font-size: 14px;
+    color: #0073b9;
+    border: 0;
+    background-color: none;
+}
+
+#error {
+    background: #f7f7f7;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+#error err p{
+    font-size: 14px;
+    color: #c92538;
+    text-decoration: none;
+    margin-left: .5rem;
+}
+
+.alert_box_error {
+    border:2px solid #ff0000;   
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.con .ttct_sodu {
+    font-size: 14px;
+    color: #0066FF;
+    text-decoration: none;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.text_bold {
+    font-weight: bold;
+}
+
+.con table tr th a {
+    color: #225fc2;
+    font-family: arial;
+    font-size: 12px;
+    text-decoration: none;
+    font-style: normal;
+}
+.con table tr th a:hover {
+    text-decoration: underline;
+}
+
+.con .link_out {
+    font-family: Arial;
+    font-style: italic;
+    text-decoration: underline;
+    color: #0073b9;
+    margin-right: 5px;
+    opacity: 0.8;
+}
+
+#recaptcha_login {
+    margin: 0 auto;
+    display: table;
+    transform: scale(0.88);
+    transform-origin:0 0;
+}
